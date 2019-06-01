@@ -3,6 +3,35 @@ body {
   font-size: 14px;
 }
 
+.button {
+  border: 1px solid #bbbbbb;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #fcfcfc;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.button img {
+  width: 20px;
+  height: 20px;
+}
+
+.button span {
+  padding-left: 5px;
+}
+
+.button:hover {
+  background-color: #96c7a0;
+}
+
+.save-participant {
+  background-color: #2eca91;
+  color: white;
+}
+
 .avatar {
   vertical-align: middle;
   width: 50px;
