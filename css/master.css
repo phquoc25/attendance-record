@@ -3,6 +3,12 @@ body {
   font-size: 14px;
 }
 
+#attendance-record {
+  height: 600px;
+  width: 700px;
+  position: relative;
+}
+
 .button {
   border: 1px solid #bbbbbb;
   border-radius: 5px;
@@ -48,6 +54,8 @@ body {
 
 .list-footer {
   display: flex;
+  position: absolute;
+  bottom: 0;
 }
 
 .header .name-panel>label {
