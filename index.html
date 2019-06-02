@@ -5,9 +5,10 @@
   <meta charset="utf-8">
   <title>Serdao badminton club</title>
   <link rel="stylesheet" href="css/master.css">
+  <script src="js/attendance-record.js" charset="utf-8"></script>
 </head>
 
-<body>
+<body onload="initAttendanceRecordService();attendanceRecordService.fetchAttendees();">
   <div id="attendance-record">
     <div class="header row-container">
       <div class="name-panel">
@@ -51,7 +52,7 @@
       </div>
     </div>
     <div class="list-footer">
-      <div class="add-participant button" onclick="onAddNewClicked();">
+      <div class="add-participant button" onclick="attendanceRecordService.addAttendee(new Attendee('unnamed'));">
         <img class="btn-icon" src="images/blue-plus-icon.png"></img>
         <span>Add new participant</span>
       </div>
@@ -62,7 +63,6 @@
       </div>
     </div>
   </div>
-  <script src="js/attendance-record.js" charset="utf-8"></script>
 </body>
 
 </html>
