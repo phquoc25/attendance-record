@@ -64,11 +64,12 @@ class AttendanceRecordRender {
     const checkOpt = document.createElement("div");
     checkOpt.classList.add("check-opt");
     const checkbox = document.createElement("input");
+    checkbox.classList.add("switch_1");
     checkbox.type = "checkbox";
     if (isChecked) {
-      checkbox.classList.add("checked");
+      checkbox.checked="checked";
     } else {
-      checkbox.classList.remove("checked");
+      checkbox.checked="";
     }
 
     checkOpt.appendChild(checkbox);
