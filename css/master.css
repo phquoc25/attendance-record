@@ -40,9 +40,9 @@ body {
   background-color: #96c7a0;
 }
 
-.save-participant {
-  background-color: #2eca91;
-  color: white;
+#delete-participant {
+  background-color: #efa03f;
+  color: #c00101;
 }
 
 .avatar {
