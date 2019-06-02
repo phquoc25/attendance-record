@@ -8,7 +8,7 @@
   <script src="js/attendance-record.js" charset="utf-8"></script>
 </head>
 
-<body onload="attendanceRecordRender.onPageLoaded();">
+<body onload="initAttendanceRecordComponent();attendanceRecordRender.onPageLoaded();">
   <div id="attendance-record">
     <div class="header row-container">
       <div class="name-panel">
@@ -22,23 +22,9 @@
       </div>
     </div>
     <div id="list-body">
-      <div class="row-container">
-        <div class="name-panel">
-          <img class="avatar" src="images/avatar2.png" alt="">
-          <div class="name">
-            Quoc PHAN
-          </div>
-        </div>
-        <div class="check-opt">
-          <input type="checkbox" class="switch_1" name="" value=""/>
-        </div>
-        <div class="check-opt">
-          <input type="checkbox" class="switch_1" name="" value=""/>
-        </div>
-      </div>
     </div>
     <div class="list-footer">
-      <div class="add-participant button" onclick="attendanceRecordRender.addAttendee(new Attendee('unnamed'));">
+      <div id="add-participant" class="button" onclick="attendanceRecordRender.onAddAttendee();">
         <img class="btn-icon" src="images/blue-plus-icon.png"></img>
         <span>Add new participant</span>
       </div>
@@ -46,9 +32,9 @@
       <input class="name-input-panel" id="attendee-name" type="text" name="attendeeName"
               value="" placeholder="Enter name..."/>
 
-      <div class="save-participant button">
+      <div id="delete-participant" class="button">
         <img class="btn-icon" src="images/check-mark.png"></img>
-        <span>Save and continue</span>
+        <span>Delete</span>
       </div>
     </div>
   </div>

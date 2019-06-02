@@ -92,6 +92,11 @@ body {
   flex-basis: 25%;
 }
 
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
 
 input[type="checkbox"].switch_1{
 	font-size: 16px;

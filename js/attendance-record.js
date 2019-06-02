@@ -40,7 +40,34 @@ class AttendanceRecordRender {
   constructor(attendanceRecordService) {
     this.attendanceRecordService = attendanceRecordService;
     this.attendees = [];
+    this.attendeeNameField = document.getElementById("attendee-name");
+    this.addBtn = document.getElementById("add-participant");
+    this.deleteBtn = document.getElementById("delete-participant");
+    this.setEnable(this.addBtn, false);
+    this.setEnable(this.deleteBtn, false);
+    this.registerEvents();
   }
+
+  setEnable(element, isEnabled) {
+    if (isEnabled) {
+      element.classList.remove("disabled");
+    } else {
+      element.classList.add("disabled");
+    }
+  }
+
+  registerEvents() {
+    this.attendeeNameField.onkeyup = function() {
+      if (this.attendeeNameField.value.length > 0) {
+        this.setEnable(this.addBtn, true);
+        this.setEnable(this.deleteBtn, true);
+      } else {
+        this.setEnable(this.addBtn, false);
+        this.setEnable(this.deleteBtn, false);
+      }
+    }.bind(this);
+  }
+
   buildAttendeeRow(attendee) {
     const rowContainer = document.createElement("div");
     rowContainer.classList.add("row-container");
@@ -110,8 +137,20 @@ class AttendanceRecordRender {
       }.bind(this));
     }.bind(this));
   }
+
+  onAddAttendee() {
+    const attendee = new Attendee(this.attendeeNameField.value);
+    this.addAttendee(attendee);
+    this.attendeeNameField.value = "";
+    this.setEnable(this.addBtn, false);
+    this.setEnable(this.deleteBtn, false);
+  }
 }
 
 // Global variables
-const attendanceRecordService = new AttendanceRecordService();
-const attendanceRecordRender = new AttendanceRecordRender(attendanceRecordService);
+let attendanceRecordService;
+let attendanceRecordRender;
+function initAttendanceRecordComponent() {
+  attendanceRecordService = new AttendanceRecordService();
+  attendanceRecordRender = new AttendanceRecordRender(attendanceRecordService);
+}
