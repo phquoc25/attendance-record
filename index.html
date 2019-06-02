@@ -8,7 +8,7 @@
   <script src="js/attendance-record.js" charset="utf-8"></script>
 </head>
 
-<body onload="initAttendanceRecordService();attendanceRecordService.fetchAttendees();">
+<body onload="attendanceRecordRender.onPageLoaded();">
   <div id="attendance-record">
     <div class="header row-container">
       <div class="name-panel">
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="list-footer">
-      <div class="add-participant button" onclick="attendanceRecordService.addAttendee(new Attendee('unnamed'));">
+      <div class="add-participant button" onclick="attendanceRecordRender.addAttendee(new Attendee('unnamed'));">
         <img class="btn-icon" src="images/blue-plus-icon.png"></img>
         <span>Add new participant</span>
       </div>

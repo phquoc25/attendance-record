@@ -20,31 +20,26 @@ class Attendee {
 }
 
 class AttendanceRecordService {
-  constructor(attendanceRecordRender) {
-    this.attendanceRecordRender = attendanceRecordRender;
-    this.attendees = [];
+  constructor() {
   }
 
-  addAttendee(attendee) {
-    this.attendees.push(attendee);
-    this.attendanceRecordRender.addAttendeeRow(attendee);
+  addAttendee(attendee, callback) {
+    callback(attendee);
   }
 
-  fetchAttendees() {
+  fetchAttendees(callback) {
     const quocPh = new Attendee("Quoc PHAN");
     quocPh.presentOnTuesday = true;
     const pierre = new Attendee("Pierre Roset");
     pierre.presentOnThursday = true;
-    [quocPh, pierre,
-    new Attendee("Gurval Le Bouter")].forEach(function (attendee){
-      this.addAttendee(attendee);
-    }.bind(this));
+    callback([quocPh, pierre, new Attendee("Gurval Le Bouter")]);
   }
 }
 
 class AttendanceRecordRender {
-  constructor() {
-
+  constructor(attendanceRecordService) {
+    this.attendanceRecordService = attendanceRecordService;
+    this.attendees = [];
   }
   buildAttendeeRow(attendee) {
     const rowContainer = document.createElement("div");
@@ -95,15 +90,28 @@ class AttendanceRecordRender {
   }
 
   addAttendeeRow(attendee) {
+    this.attendees.push(attendee);
     const listBody = document.getElementById("list-body");
     const attendeeRow = this.buildAttendeeRow(attendee);
     listBody.appendChild(attendeeRow);
   }
+
+  addAttendee(attendee) {
+    // Server side
+    this.attendanceRecordService.addAttendee(attendee, function(att) {
+      this.addAttendeeRow(att);
+    }.bind(this));
+  }
+
+  onPageLoaded() {
+    this.attendanceRecordService.fetchAttendees(function(attendees) {
+      attendees.forEach(function(att) {
+        this.addAttendeeRow(att);
+      }.bind(this));
+    }.bind(this));
+  }
 }
 
 // Global variables
-let attendanceRecordService;
-const attendanceRecordRender = new AttendanceRecordRender();
-function initAttendanceRecordService() {
-  attendanceRecordService = new AttendanceRecordService(attendanceRecordRender);
-}
+const attendanceRecordService = new AttendanceRecordService();
+const attendanceRecordRender = new AttendanceRecordRender(attendanceRecordService);
