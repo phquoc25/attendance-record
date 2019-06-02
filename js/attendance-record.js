@@ -28,11 +28,22 @@ class AttendanceRecordService {
   }
 
   fetchAttendees(callback) {
-    const quocPh = new Attendee("Quoc PHAN");
+    const quocPh = new Attendee("Hồ Quốc");
     quocPh.presentOnTuesday = true;
-    const pierre = new Attendee("Pierre Roset");
-    pierre.presentOnThursday = true;
-    callback([quocPh, pierre, new Attendee("Gurval Le Bouter")]);
+    quocPh.presentOnThursday = true;
+    const khanhNg = new Attendee("Văn Khánh");
+    khanhNg.presentOnThursday = true;
+    const nico = new Attendee("Nicolas");
+    nico.presentOnTuesday = true;
+    callback([quocPh,
+      khanhNg,
+      nico,
+      new Attendee("Diệu Vi"),
+      new Attendee("Mỹ Hân"),
+      new Attendee("Hân Nhọn"),
+      new Attendee("Minh Quân"),
+      new Attendee("Pierre")
+    ]);
   }
 }
 
