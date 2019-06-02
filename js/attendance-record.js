@@ -31,8 +31,11 @@ class AttendanceRecordService {
   }
 
   fetchAttendees() {
-    [new Attendee("Quoc PHAN"),
-    new Attendee("Pierre Roset"),
+    const quocPh = new Attendee("Quoc PHAN");
+    quocPh.presentOnTuesday = true;
+    const pierre = new Attendee("Pierre Roset");
+    pierre.presentOnThursday = true;
+    [quocPh, pierre,
     new Attendee("Gurval Le Bouter")].forEach(function (attendee){
       this.addAttendee(attendee);
     }.bind(this));
@@ -40,12 +43,15 @@ class AttendanceRecordService {
 }
 
 class AttendanceRecordRender {
+  constructor() {
+
+  }
   buildAttendeeRow(attendee) {
     const rowContainer = document.createElement("div");
     rowContainer.classList.add("row-container");
     const namePanel = this.buildNamePanel(attendee.avatar, attendee.name);
-    const tuesdayCheck = this.buildCheckPanel();
-    const thursdayCheck = this.buildCheckPanel();
+    const tuesdayCheck = this.buildCheckPanel(attendee.presentOnTuesday);
+    const thursdayCheck = this.buildCheckPanel(attendee.presentOnThursday);
 
     rowContainer.appendChild(namePanel);
     rowContainer.appendChild(tuesdayCheck);
@@ -54,11 +60,17 @@ class AttendanceRecordRender {
     return rowContainer;
   }
 
-  buildCheckPanel() {
+  buildCheckPanel(isChecked) {
     const checkOpt = document.createElement("div");
     checkOpt.classList.add("check-opt");
     const checkbox = document.createElement("input");
-    checkbox.type = "checkbox"
+    checkbox.type = "checkbox";
+    if (isChecked) {
+      checkbox.classList.add("checked");
+    } else {
+      checkbox.classList.remove("checked");
+    }
+
     checkOpt.appendChild(checkbox);
     return checkOpt;
   }
@@ -90,7 +102,7 @@ class AttendanceRecordRender {
 
 // Global variables
 let attendanceRecordService;
+const attendanceRecordRender = new AttendanceRecordRender();
 function initAttendanceRecordService() {
-  const attendanceRecordRender = new AttendanceRecordRender();
   attendanceRecordService = new AttendanceRecordService(attendanceRecordRender);
 }
