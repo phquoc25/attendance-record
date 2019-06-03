@@ -1,141 +1,141 @@
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  line-height: 1.6em;
-	margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6em;
+    margin: 0;
 }
 
 #attendance-record {
-  height: 600px;
-  width: 700px;
-  position: relative;
+    height: 600px;
+    width: 700px;
+    position: relative;
 }
 
 #list-body {
-  max-height: 500px;
-  overflow-y: scroll;
+    max-height: 500px;
+    overflow-y: scroll;
 }
 
 .button {
-  border: 1px solid #bbbbbb;
-  border-radius: 5px;
-  padding: 10px;
-  background-color: #fcfcfc;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fcfcfc;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
 }
 
 .button img {
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
 }
 
 .button span {
-  padding-left: 5px;
+    padding-left: 5px;
 }
 
 .button:hover {
-  background-color: #96c7a0;
+    background-color: #96c7a0;
 }
 
 #delete-participant {
-  background-color: #efa03f;
-  color: #c00101;
+    background-color: #efa03f;
+    color: #c00101;
 }
 
 .avatar {
-  vertical-align: middle;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 
 .row-container {
-  display: flex;
-  border-bottom: 1px solid #bbbbbb;
-  padding: 10px;
-  align-items: center;
+    display: flex;
+    border-bottom: 1px solid #bbbbbb;
+    padding: 10px;
+    align-items: center;
 }
 
 .list-footer {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: 0;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
 }
 
 .list-footer .name-input-panel {
-  margin: 0 15px;
-  border: 1px solid #bbbbbb;
-  border-radius: 5px;
-  padding: 13px;
-  font-size: 16px;
+    margin: 0 15px;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+    padding: 13px;
+    font-size: 16px;
 }
 
-.header .name-panel>label {
-  padding-left: 60px;
+.header .name-panel > label {
+    padding-left: 60px;
 }
 
 .name-panel {
-  flex-basis: 50%;
-  display: flex;
-  align-items: center;
+    flex-basis: 50%;
+    display: flex;
+    align-items: center;
 }
 
 .name-panel .name {
-  padding-left: 10px;
+    padding-left: 10px;
 }
 
 .check-opt {
-  flex-basis: 25%;
+    flex-basis: 25%;
 }
 
 .disabled {
-  opacity: 0.5;
-  pointer-events: none;
-  cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
 }
 
-input[type="checkbox"].switch_1{
-	font-size: 16px;
-	-webkit-appearance: none;
-	   -moz-appearance: none;
-	        appearance: none;
-	width: 3.5em;
-	height: 1.5em;
-	background: #ddd;
-	border-radius: 3em;
-	position: relative;
-	cursor: pointer;
-	outline: none;
-	-webkit-transition: all .2s ease-in-out;
-	transition: all .2s ease-in-out;
-  }
+input[type="checkbox"].switch_1 {
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 3.5em;
+    height: 1.5em;
+    background: #ddd;
+    border-radius: 3em;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
 
-  input[type="checkbox"].switch_1:checked{
-	background: #0ebeff;
-  }
+input[type="checkbox"].switch_1:checked {
+    background: #0ebeff;
+}
 
-  input[type="checkbox"].switch_1:after{
-	position: absolute;
-	content: "";
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 50%;
-	background: #fff;
-	-webkit-box-shadow: 0 0 .25em rgba(0,0,0,.3);
-	        box-shadow: 0 0 .25em rgba(0,0,0,.3);
-	-webkit-transform: scale(.7);
-	        transform: scale(.7);
-	left: 0;
-	-webkit-transition: all .2s ease-in-out;
-	transition: all .2s ease-in-out;
-  }
+input[type="checkbox"].switch_1:after {
+    position: absolute;
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    background: #fff;
+    -webkit-box-shadow: 0 0 .25em rgba(0, 0, 0, .3);
+    box-shadow: 0 0 .25em rgba(0, 0, 0, .3);
+    -webkit-transform: scale(.7);
+    transform: scale(.7);
+    left: 0;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
 
-  input[type="checkbox"].switch_1:checked:after{
-	left: calc(100% - 1.5em);
-  }
+input[type="checkbox"].switch_1:checked:after {
+    left: calc(100% - 1.5em);
+}
 
 /* Switch 1 Specific Style End */
