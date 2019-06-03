@@ -1,22 +1,26 @@
 package com.qph.attendancerecord.resources;
 
 import com.qph.attendancerecord.entity.Attendee;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.qph.attendancerecord.services.AttendeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
+@RequestMapping("/attendees")
 public class AttendanceRecordController {
+    @Autowired
+    private AttendeeService attendeeService;
 
-    @GetMapping("/attendees")
+    @GetMapping()
     public List<Attendee> getAttendees() {
-        return Stream.of(new Attendee("Quoc", true, true),
-                        new Attendee("Khanh", false, true),
-                        new Attendee("Nico", true, false))
-                .collect(Collectors.toList());
+        return attendeeService.getAllAttendees();
+    }
+
+    @PutMapping()
+    public void updateAttendee(@RequestBody Attendee attendee) {
+        attendeeService.updateAttendee(attendee);
     }
 
 }
