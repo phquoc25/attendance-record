@@ -1,11 +1,11 @@
 "use strict";
 class Attendee {
-  constructor(name) {
-    this.id = this.generateId();
+  constructor(name, id, avatar, presentOnTuesday, presentOnThursday) {
     this.name = name;
-    this.avatar = this.getRandomAvatar();
-    this.presentOnTuesday = false;
-    this.presentOnThursday = false;
+    this.id = id ? id : this.generateId();
+    this.avatar = avatar ? avatar : this.getRandomAvatar();
+    this.presentOnTuesday = !!presentOnTuesday;
+    this.presentOnThursday = !!presentOnThursday;
   }
 
   generateId() {
@@ -28,22 +28,19 @@ class AttendanceRecordService {
   }
 
   fetchAttendees(callback) {
-    const quocPh = new Attendee("Hồ Quốc");
-    quocPh.presentOnTuesday = true;
-    quocPh.presentOnThursday = true;
-    const khanhNg = new Attendee("Văn Khánh");
-    khanhNg.presentOnThursday = true;
-    const nico = new Attendee("Nicolas");
-    nico.presentOnTuesday = true;
-    callback([quocPh,
-      khanhNg,
-      nico,
-      new Attendee("Diệu Vi"),
-      new Attendee("Mỹ Hân"),
-      new Attendee("Hân Nhọn"),
-      new Attendee("Minh Quân"),
-      new Attendee("Pierre")
-    ]);
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          const attendees = [];
+          JSON.parse(this.responseText)
+              .forEach(function(att) {
+                attendees.push(new Attendee(att.name, att.id, att.avatar, att.presentOnTuesday, att.presentOnThursday));
+              });
+          callback(attendees);
+        }
+    };
+    xhttp.open("GET", "attendees", true);
+    xhttp.send();
   }
 }
 
