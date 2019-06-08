@@ -11,11 +11,20 @@ public class Attendee {
 
     private boolean presentOnThursday;
 
+    public Attendee() {
+        // For jackson to deserialize
+    }
+
     public Attendee(String name, boolean presentOnTuesday, boolean presentOnThursday) {
         this.id = Calendar.getInstance().getTimeInMillis();
         this.name = name;
         this.presentOnTuesday = presentOnTuesday;
         this.presentOnThursday = presentOnThursday;
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public Long getId() {

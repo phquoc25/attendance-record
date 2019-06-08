@@ -1,16 +1,17 @@
 package com.qph.attendancerecord;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class AttendanceRecordApplication {
+
+	@Bean
+	public ObjectMapper getObjectMapper() {
+		return new ObjectMapper();
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(AttendanceRecordApplication.class, args);

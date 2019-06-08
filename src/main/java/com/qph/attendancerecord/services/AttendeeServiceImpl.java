@@ -1,43 +1,35 @@
 package com.qph.attendancerecord.services;
 
+import com.qph.attendancerecord.dao.AttendeeDao;
 import com.qph.attendancerecord.entity.Attendee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class AttendeeServiceImpl implements AttendeeService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AttendeeServiceImpl.class);
-    private static final List<Attendee> ATTENDEES = Stream.of(
-            new Attendee("Ho Quoc", true, true),
-            new Attendee("Van Khanh", false, true),
-            new Attendee("Nicolas", true, false),
-            new Attendee("Dieu Vi", false, false),
-            new Attendee("My Han", true, true),
-            new Attendee("Han Nhon", true, true),
-            new Attendee("Minh Quan", false, false),
-            new Attendee("Pierre", true, false),
-            new Attendee("Tuan Anh", false, false))
-            .collect(Collectors.toList());
-    @Override
-    public List<Attendee> getAllAttendees() {
-        LOGGER.debug("Getting all attendees");
-        return ATTENDEES;
+
+    private AttendeeDao attendeeDao;
+
+    @Autowired
+    public AttendeeServiceImpl(AttendeeDao attendeeDao) {
+        this.attendeeDao = attendeeDao;
     }
 
     @Override
-    public void updateAttendee(Attendee attendee) {
-        LOGGER.debug("Updating attendees with id={}, name={}. New info presentOnTuesday={}, presentonThursday={}",
-                attendee.getId(), attendee.getName(), attendee.isPresentOnTuesday(), attendee.isPresentOnThursday());
-        ATTENDEES.stream().filter(att -> att.equals(attendee))
-                .findFirst()
-                .ifPresent(att -> {
-                    att.setPresentOnTuesday(attendee.isPresentOnTuesday());
-                    att.setPresentOnThursday(attendee.isPresentOnThursday());
-                });
+    public List<Attendee> getAllAttendees() {
+        LOGGER.debug("Getting all attendees");
+        return attendeeDao.getAllAttendees();
+    }
+
+    @Override
+    public void updateAttendees(List<Attendee> attendees) throws IOException {
+        LOGGER.debug("Updating attendees {}", attendees);
+        attendeeDao.updateAttendees(attendees);
     }
 }

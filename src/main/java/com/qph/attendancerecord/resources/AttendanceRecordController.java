@@ -10,8 +10,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/attendees")
 public class AttendanceRecordController {
-    @Autowired
     private AttendeeService attendeeService;
+
+    @Autowired
+    public AttendanceRecordController(AttendeeService attendeeService) {
+        this.attendeeService = attendeeService;
+    }
 
     @GetMapping()
     public List<Attendee> getAttendees() {
@@ -20,7 +24,7 @@ public class AttendanceRecordController {
 
     @PutMapping()
     public void updateAttendee(@RequestBody Attendee attendee) {
-        attendeeService.updateAttendee(attendee);
+        //attendeeService.updateAttendees(attendee);
     }
 
 }
