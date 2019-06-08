@@ -6,13 +6,13 @@ body {
 }
 
 #attendance-record {
-    height: 600px;
+    height: 700px;
     width: 700px;
     position: relative;
 }
 
 #list-body {
-    max-height: 500px;
+    max-height: 540px;
     overflow-y: scroll;
 }
 
@@ -139,3 +139,16 @@ input[type="checkbox"].switch_1:checked:after {
 }
 
 /* Switch 1 Specific Style End */
+
+.status-img {
+    width: 60px;
+    height: 60px;
+}
+
+.status-img.unhappy {
+    background-image: url("../images/unhappy.svg");
+}
+
+.status-img.happy {
+    background-image: url("../images/in-love.svg");
+}

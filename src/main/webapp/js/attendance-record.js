@@ -46,12 +46,16 @@ class AttendanceRecordService {
 }
 
 class AttendanceRecordRender {
+    static HAPPY_CLS = "happy";
+    static UNHAPPY_CLS = "unhappy";
     constructor(attendanceRecordService) {
         this.attendanceRecordService = attendanceRecordService;
         this.attendees = [];
         this.attendeeNameField = document.getElementById("attendee-name");
         this.addBtn = document.getElementById("add-participant");
         this.deleteBtn = document.getElementById("delete-participant");
+        this.tuesdayStatus = document.getElementById("tuesday-status-img");
+        this.thursdayStatus = document.getElementById("thursday-status-img");
         this.setEnable(this.addBtn, false);
         this.setEnable(this.deleteBtn, false);
         this.registerEvents();
@@ -82,12 +86,15 @@ class AttendanceRecordRender {
         rowContainer.classList.add("row-container");
         const namePanel = this.buildNamePanel(attendee.avatar, attendee.name);
         const tuesdayCheck = this.buildCheckPanel(attendee.presentOnTuesday);
+        const that = this;
         tuesdayCheck.onclick = () => {
             attendee.presentOnTuesday = !attendee.presentOnTuesday;
+            that.refreshTuesdayStatus();
         };
         const thursdayCheck = this.buildCheckPanel(attendee.presentOnThursday);
         thursdayCheck.onclick = () => {
             attendee.presentOnThursday = !attendee.presentOnThursday;
+            that.refreshThursdayStatus();
         };
 
         rowContainer.appendChild(namePanel);
@@ -150,6 +157,8 @@ class AttendanceRecordRender {
             attendees.forEach(function (att) {
                 this.addAttendeeRow(att);
             }.bind(this));
+            this.refreshTuesdayStatus();
+            this.refreshThursdayStatus();
         }.bind(this));
     }
 
@@ -159,6 +168,26 @@ class AttendanceRecordRender {
         this.attendeeNameField.value = "";
         this.setEnable(this.addBtn, false);
         this.setEnable(this.deleteBtn, false);
+    }
+
+    refreshTuesdayStatus() {
+        if (this.attendees.filter(att => att.presentOnTuesday).length > 3) {
+            this.tuesdayStatus.classList.add(AttendanceRecordRender.HAPPY_CLS);
+            this.tuesdayStatus.classList.remove(AttendanceRecordRender.UNHAPPY_CLS);
+        } else {
+            this.tuesdayStatus.classList.remove(AttendanceRecordRender.HAPPY_CLS);
+            this.tuesdayStatus.classList.add(AttendanceRecordRender.UNHAPPY_CLS);
+        }
+    }
+
+    refreshThursdayStatus() {
+        if (this.attendees.filter(att => att.presentOnThursday).length > 3) {
+            this.thursdayStatus.classList.add(AttendanceRecordRender.HAPPY_CLS);
+            this.thursdayStatus.classList.remove(AttendanceRecordRender.UNHAPPY_CLS);
+        } else {
+            this.thursdayStatus.classList.remove(AttendanceRecordRender.HAPPY_CLS);
+            this.thursdayStatus.classList.add(AttendanceRecordRender.UNHAPPY_CLS);
+        }
     }
 }
 
