@@ -82,7 +82,13 @@ class AttendanceRecordRender {
         rowContainer.classList.add("row-container");
         const namePanel = this.buildNamePanel(attendee.avatar, attendee.name);
         const tuesdayCheck = this.buildCheckPanel(attendee.presentOnTuesday);
+        tuesdayCheck.onclick = () => {
+            attendee.presentOnTuesday = !attendee.presentOnTuesday;
+        };
         const thursdayCheck = this.buildCheckPanel(attendee.presentOnThursday);
+        thursdayCheck.onclick = () => {
+            attendee.presentOnThursday = !attendee.presentOnThursday;
+        };
 
         rowContainer.appendChild(namePanel);
         rowContainer.appendChild(tuesdayCheck);
