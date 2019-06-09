@@ -20,11 +20,6 @@ public class Attendee {
         this.name = name;
         this.presentOnTuesday = presentOnTuesday;
         this.presentOnThursday = presentOnThursday;
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public Long getId() {

@@ -79,6 +79,10 @@ class AttendanceRecordRender {
                 this.setEnable(this.deleteBtn, false);
             }
         }.bind(this);
+
+        this.addBtn.onclick = function () {
+            this.onAddAttendee();
+        }.bind(this);
     }
 
     buildAttendeeRow(attendee) {

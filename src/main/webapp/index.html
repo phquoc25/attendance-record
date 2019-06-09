@@ -27,17 +27,23 @@
     <div id="list-body">
     </div>
     <div class="list-footer">
-      <div id="add-participant" class="button" onclick="attendanceRecordRender.onAddAttendee();">
-        <img class="btn-icon" src="images/blue-plus-icon.png"></img>
-        <span>Add new participant</span>
-      </div>
-
       <input class="name-input-panel" id="attendee-name" type="text" name="attendeeName"
-              value="" placeholder="Enter name..."/>
+             value="" placeholder="Enter name..."/>
 
-      <div id="delete-participant" class="button">
-        <img class="btn-icon" src="images/delete-icon.png"></img>
-        <span>Delete</span>
+      <div>
+        <div id="add-participant" class="btn btn-primary">
+          <img class="btn-icon" src="images/blue-plus-icon.png"/>
+          <span>Add new participant</span>
+        </div>
+
+        <div id="delete-participant" class="btn btn-danger">
+          <img class="btn-icon" src="images/delete-icon.png"/>
+          <span>Delete</span>
+        </div>
+      </div>
+      <div id="save-participants" class="btn btn-success btn-save-attendee">
+        <img class="btn-icon" src="images/check-mark.png"/>
+        <span>Save and continue</span>
       </div>
     </div>
   </div>
