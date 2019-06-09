@@ -43,7 +43,7 @@ public class AttendeeDaoImpl implements AttendeeDao {
     }
 
     @Override
-    public void updateAttendees(List<Attendee> attendees) throws IOException {
+    synchronized public void updateAttendees(List<Attendee> attendees) throws IOException {
         LOGGER.debug("updating attendees to DB");
         try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
             objectMapper.writeValue(fileOutputStream, attendees);
