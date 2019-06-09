@@ -7,6 +7,8 @@ public class Attendee {
 
     private String name;
 
+    private String avatar;
+
     private boolean presentOnTuesday;
 
     private boolean presentOnThursday;
@@ -52,6 +54,14 @@ public class Attendee {
 
     public void setPresentOnThursday(boolean presentOnThursday) {
         this.presentOnThursday = presentOnThursday;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @Override

@@ -3,18 +3,18 @@
 class Attendee {
     constructor(name, id, avatar, presentOnTuesday, presentOnThursday) {
         this.name = name;
-        this.id = id ? id : this.generateId();
-        this.avatar = avatar ? avatar : this.getRandomAvatar();
+        this.id = id ? id : Attendee.generateId();
+        this.avatar = avatar ? avatar : Attendee.getRandomAvatar();
         this.presentOnTuesday = !!presentOnTuesday;
         this.presentOnThursday = !!presentOnThursday;
     }
 
-    generateId() {
+    static generateId() {
         const date = new Date();
         return date.getTime();
     }
 
-    getRandomAvatar() {
+    static getRandomAvatar() {
         const avatarNum = Math.floor(Math.random() * 5) + 1;
         return "images/" + "avatar" + avatarNum + ".png";
     }
@@ -43,6 +43,22 @@ class AttendanceRecordService {
         xhttp.open("GET", "attendees", true);
         xhttp.send();
     }
+
+    saveAttendees(attendees, successCallback, errorCallback) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    successCallback();
+                } else {
+                    errorCallback();
+                }
+            }
+        };
+        xhttp.open("PUT", "attendees", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify(attendees));
+    }
 }
 
 class AttendanceRecordRender {
@@ -54,14 +70,15 @@ class AttendanceRecordRender {
         this.attendeeNameField = document.getElementById("attendee-name");
         this.addBtn = document.getElementById("add-participant");
         this.deleteBtn = document.getElementById("delete-participant");
+        this.saveBtn = document.getElementById("save-participants");
         this.tuesdayStatus = document.getElementById("tuesday-status-img");
         this.thursdayStatus = document.getElementById("thursday-status-img");
-        this.setEnable(this.addBtn, false);
-        this.setEnable(this.deleteBtn, false);
+        AttendanceRecordRender.setEnable(this.addBtn, false);
+        AttendanceRecordRender.setEnable(this.deleteBtn, false);
         this.registerEvents();
     }
 
-    setEnable(element, isEnabled) {
+    static setEnable(element, isEnabled) {
         if (isEnabled) {
             element.classList.remove("disabled");
         } else {
@@ -70,19 +87,33 @@ class AttendanceRecordRender {
     }
 
     registerEvents() {
+        const that = this;
         this.attendeeNameField.onkeyup = function () {
-            if (this.attendeeNameField.value.length > 0) {
-                this.setEnable(this.addBtn, true);
-                this.setEnable(this.deleteBtn, true);
+            if (that.attendeeNameField.value.length > 0) {
+                AttendanceRecordRender.setEnable(that.addBtn, true);
+                AttendanceRecordRender.setEnable(that.deleteBtn, true);
             } else {
-                this.setEnable(this.addBtn, false);
-                this.setEnable(this.deleteBtn, false);
+                AttendanceRecordRender.setEnable(that.addBtn, false);
+                AttendanceRecordRender.setEnable(that.deleteBtn, false);
             }
-        }.bind(this);
+        };
 
-        this.addBtn.onclick = function () {
-            this.onAddAttendee();
-        }.bind(this);
+        this.addBtn.onclick = function() {
+            that.onAddAttendee();
+        };
+
+        this.saveBtn.onclick = function() {
+            AttendanceRecordRender.setEnable(that.saveBtn, false);
+            that.attendanceRecordService.saveAttendees(that.attendees,
+                    function () {
+                        window.alert("Attendees have been saved successfully");
+                        AttendanceRecordRender.setEnable(that.saveBtn, true);
+                    },
+                    function () {
+                        window.alert("Attendees save failure!!!!");
+                        AttendanceRecordRender.setEnable(that.saveBtn, true);
+                    });
+        };
     }
 
     buildAttendeeRow(attendee) {
@@ -151,27 +182,29 @@ class AttendanceRecordRender {
 
     addAttendee(attendee) {
         // Server side
+        const that = this;
         this.attendanceRecordService.addAttendee(attendee, function (att) {
-            this.addAttendeeRow(att);
-        }.bind(this));
+            that.addAttendeeRow(att);
+        });
     }
 
     onPageLoaded() {
+        const that = this;
         this.attendanceRecordService.fetchAttendees(function (attendees) {
             attendees.forEach(function (att) {
-                this.addAttendeeRow(att);
-            }.bind(this));
-            this.refreshTuesdayStatus();
-            this.refreshThursdayStatus();
-        }.bind(this));
+                that.addAttendeeRow(att);
+            });
+            that.refreshTuesdayStatus();
+            that.refreshThursdayStatus();
+        });
     }
 
     onAddAttendee() {
         const attendee = new Attendee(this.attendeeNameField.value);
         this.addAttendee(attendee);
         this.attendeeNameField.value = "";
-        this.setEnable(this.addBtn, false);
-        this.setEnable(this.deleteBtn, false);
+        AttendanceRecordRender.setEnable(this.addBtn, false);
+        AttendanceRecordRender.setEnable(this.deleteBtn, false);
     }
 
     refreshTuesdayStatus() {
