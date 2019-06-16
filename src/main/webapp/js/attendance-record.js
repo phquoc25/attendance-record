@@ -91,12 +91,18 @@ class AttendanceRecordRender {
     registerEvents() {
         const that = this;
         this.attendeeNameField.oninput = () => {
-            if (that.attendeeNameField.value.length > 0) {
+            if (that.attendeeNameField.value.trim().length > 0) {
                 AttendanceRecordRender.setEnable(that.addBtn, true);
                 AttendanceRecordRender.setEnable(that.deleteBtn, true);
             } else {
                 AttendanceRecordRender.setEnable(that.addBtn, false);
                 AttendanceRecordRender.setEnable(that.deleteBtn, false);
+            }
+        };
+
+        this.attendeeNameField.onkeydown = (event) => {
+            if (event.code === "Enter" && that.attendeeNameField.value !== "") {
+                that.onAddAttendee();
             }
         };
 
@@ -210,11 +216,14 @@ class AttendanceRecordRender {
     }
 
     onAddAttendee() {
-        const attendee = new Attendee(this.attendeeNameField.value);
-        this.addAttendee(attendee);
-        this.attendeeNameField.value = "";
-        AttendanceRecordRender.setEnable(this.addBtn, false);
-        AttendanceRecordRender.setEnable(this.deleteBtn, false);
+        const name = this.attendeeNameField.value.trim();
+        if (this.isNameValid(name)) {
+            const attendee = new Attendee(name);
+            this.addAttendee(attendee);
+            this.setAttendeeNameFieldValue("");
+        } else {
+            window.alert("The name " + name + " is already exist. Please input a new name.");
+        }
     }
 
     refreshTuesdayStatus() {
@@ -251,6 +260,10 @@ class AttendanceRecordRender {
     setAttendeeNameFieldValue(newVal) {
         this.attendeeNameField.value = newVal;
         this.attendeeNameField.oninput();
+    }
+
+    isNameValid(newName) {
+        return this.attendees.filter(att => att.name === newName).length === 0;
     }
 }
 
