@@ -73,6 +73,8 @@ class AttendanceRecordRender {
         this.saveBtn = document.getElementById("save-participants");
         this.tuesdayStatus = document.getElementById("tuesday-status-img");
         this.thursdayStatus = document.getElementById("thursday-status-img");
+        this.listBody = document.getElementById("list-body");
+        this.attendeeRowMap = {};
         AttendanceRecordRender.setEnable(this.addBtn, false);
         AttendanceRecordRender.setEnable(this.deleteBtn, false);
         this.registerEvents();
@@ -88,7 +90,7 @@ class AttendanceRecordRender {
 
     registerEvents() {
         const that = this;
-        this.attendeeNameField.onkeyup = function () {
+        this.attendeeNameField.oninput = () => {
             if (that.attendeeNameField.value.length > 0) {
                 AttendanceRecordRender.setEnable(that.addBtn, true);
                 AttendanceRecordRender.setEnable(that.deleteBtn, true);
@@ -98,11 +100,11 @@ class AttendanceRecordRender {
             }
         };
 
-        this.addBtn.onclick = function() {
+        this.addBtn.onclick = () => {
             that.onAddAttendee();
         };
 
-        this.saveBtn.onclick = function() {
+        this.saveBtn.onclick = () => {
             AttendanceRecordRender.setEnable(that.saveBtn, false);
             that.attendanceRecordService.saveAttendees(that.attendees,
                     function () {
@@ -113,6 +115,10 @@ class AttendanceRecordRender {
                         window.alert("Attendees save failure!!!!");
                         AttendanceRecordRender.setEnable(that.saveBtn, true);
                     });
+        };
+
+        this.deleteBtn.onclick = () => {
+            that.onDeleteAttendeeClicked();
         };
     }
 
@@ -135,6 +141,10 @@ class AttendanceRecordRender {
         rowContainer.appendChild(namePanel);
         rowContainer.appendChild(tuesdayCheck);
         rowContainer.appendChild(thursdayCheck);
+
+        rowContainer.onclick = () => {
+            that.setAttendeeNameFieldValue(attendee.name);
+        };
 
         return rowContainer;
     }
@@ -175,9 +185,9 @@ class AttendanceRecordRender {
 
     addAttendeeRow(attendee) {
         this.attendees.push(attendee);
-        const listBody = document.getElementById("list-body");
         const attendeeRow = this.buildAttendeeRow(attendee);
-        listBody.appendChild(attendeeRow);
+        this.attendeeRowMap[attendee.name] = attendeeRow;
+        this.listBody.appendChild(attendeeRow);
     }
 
     addAttendee(attendee) {
@@ -225,6 +235,22 @@ class AttendanceRecordRender {
             this.thursdayStatus.classList.remove(AttendanceRecordRender.HAPPY_CLS);
             this.thursdayStatus.classList.add(AttendanceRecordRender.UNHAPPY_CLS);
         }
+    }
+
+    onDeleteAttendeeClicked() {
+        const attendeeName = this.attendeeNameField.value;
+        const attendeeRow = this.attendeeRowMap[attendeeName];
+        if (!attendeeRow) {
+            window.alert("The attendee with name " + attendeeName + " is not found. Please select on the list.")
+        } else {
+            this.listBody.removeChild(attendeeRow);
+            this.setAttendeeNameFieldValue("");
+        }
+    }
+
+    setAttendeeNameFieldValue(newVal) {
+        this.attendeeNameField.value = newVal;
+        this.attendeeNameField.oninput();
     }
 }
 
