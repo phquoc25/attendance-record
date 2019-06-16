@@ -1,0 +1,18 @@
+{
+  "bundles": [
+    {
+      "type": "css",
+      "name": "att-record-static-combined.css",
+      "files": [
+        "master.css"
+      ]
+    },
+    {
+      "type": "js",
+      "name": "att-record-static-combined.js",
+      "files": [
+        "attendance-record.js"
+      ]
+    }
+  ]
+}

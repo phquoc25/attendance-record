@@ -66,6 +66,49 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warSourceExcludes>**/master.css,**/attendance-record.js</warSourceExcludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.samaxes.maven</groupId>
+				<artifactId>minify-maven-plugin</artifactId>
+				<version>1.7.6</version>
+				<executions>
+					<execution>
+						<id>default-minify</id>
+<!--						<configuration>
+							<charset>UTF-8</charset>
+							<cssSourceDir>css</cssSourceDir>
+							<cssSourceFiles>
+								<cssSourceFile>master.css</cssSourceFile>
+							</cssSourceFiles>
+							<cssFinalFile>att-record-static-combine.css</cssFinalFile>
+							<jsSourceDir>js</jsSourceDir>
+							<jsSourceFiles>
+								<jsSourceFile>attendance-record.js</jsSourceFile>
+							</jsSourceFiles>
+							<jsFinalFile>att-record-static-combine.js</jsFinalFile>
+							<jsEngine>CLOSURE</jsEngine>
+						</configuration>-->
+
+						<configuration>
+							<charset>UTF-8</charset>
+							<bundleConfiguration>src/minify/static-bundles.json</bundleConfiguration>
+							<jsEngine>CLOSURE</jsEngine>
+						</configuration>
+
+						<goals>
+							<goal>minify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 

@@ -62,8 +62,6 @@ class AttendanceRecordService {
 }
 
 class AttendanceRecordRender {
-    static HAPPY_CLS = "happy";
-    static UNHAPPY_CLS = "unhappy";
     constructor(attendanceRecordService) {
         this.attendanceRecordService = attendanceRecordService;
         this.attendees = [];
@@ -78,6 +76,14 @@ class AttendanceRecordRender {
         AttendanceRecordRender.setEnable(this.addBtn, false);
         AttendanceRecordRender.setEnable(this.deleteBtn, false);
         this.registerEvents();
+    }
+
+    static get HAPPY_CLS() {
+        return "happy";
+    }
+
+    static get UNHAPPY_CLS() {
+        return "unhappy";
     }
 
     static setEnable(element, isEnabled) {
@@ -148,10 +154,6 @@ class AttendanceRecordRender {
         rowContainer.appendChild(tuesdayCheck);
         rowContainer.appendChild(thursdayCheck);
 
-        rowContainer.onclick = () => {
-            that.setAttendeeNameFieldValue(attendee.name);
-        };
-
         return rowContainer;
     }
 
@@ -185,6 +187,11 @@ class AttendanceRecordRender {
 
         namePanel.appendChild(avatar);
         namePanel.appendChild(name);
+
+        const that = this;
+        namePanel.onclick = () => {
+            that.setAttendeeNameFieldValue(attendeeName);
+        };
 
         return namePanel;
     }
