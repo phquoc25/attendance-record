@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1560018929026,
+    "name": "Ho Quoc",
+    "avatar": "images/avatar5.png",
+    "presentOnTuesday": true,
+    "presentOnThursday": false
+  },
+  {
+    "id": 1560018929039,
+    "name": "Van Khanh",
+    "avatar": "images/avatar3.png",
+    "presentOnTuesday": true,
+    "presentOnThursday": false
+  },
+  {
+    "id": 1560018929052,
+    "name": "Nicolas",
+    "avatar": "images/avatar4.png",
+    "presentOnTuesday": true,
+    "presentOnThursday": false
+  },
+  {
+    "id": 1560018929064,
+    "name": "Dieu Vi",
+    "avatar": "images/avatar1.png",
+    "presentOnTuesday": false,
+    "presentOnThursday": false
+  },
+  {
+    "id": 1560018929076,
+    "name": "My Han",
+    "avatar": "images/avatar2.png",
+    "presentOnTuesday": true,
+    "presentOnThursday": true
+  },
+  {
+    "id": 1560018929089,
+    "name": "Han Nhon",
+    "avatar": "images/avatar1.png",
+    "presentOnTuesday": true,
+    "presentOnThursday": true
+  },
+  {
+    "id": 1560018929101,
+    "name": "Minh Quan",
+    "avatar": "images/avatar3.png",
+    "presentOnTuesday": false,
+    "presentOnThursday": false
+  },
+  {
+    "id": 1560018929112,
+    "name": "Pierre",
+    "avatar": "images/avatar5.png",
+    "presentOnTuesday": false,
+    "presentOnThursday": false
+  },
+  {
+    "id": 1560018929124,
+    "name": "Tuan Anh",
+    "avatar": "images/avatar4.png",
+    "presentOnTuesday": false,
+    "presentOnThursday": true
+  }
+]
