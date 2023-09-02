@@ -9,4 +9,6 @@ public interface AttendeeDao {
     List<Attendee> getAllAttendees();
 
     void updateAttendees(List<Attendee> attendees) throws IOException;
+
+    Attendee save(Attendee attendee) throws IOException;
 }
