@@ -21,6 +21,8 @@ public class AttendanceRecordApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/attendees").allowedOrigins("*");
+				registry.addMapping("/admin/**").allowedOrigins("*")
+						.allowedMethods("PUT", "DELETE");
 			}
 		};
 	}

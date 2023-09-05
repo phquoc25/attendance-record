@@ -31,4 +31,11 @@ public class AttendeeServiceImpl implements AttendeeService {
     public Attendee save(Attendee attendee) throws IOException {
         return attendeeDao.save(attendee);
     }
+
+    @Override
+    public String remove(String id) throws IOException {
+        return attendeeDao.remove(id);
+    }
+
+
 }

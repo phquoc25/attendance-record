@@ -70,4 +70,14 @@ public class AttendeeDaoImpl implements AttendeeDao {
         this.updateAttendees(updatedAttendees);
         return attendee;
     }
+
+    @Override
+    public String remove(String id) throws IOException {
+        List<Attendee> allAttendees = this.getAllAttendees();
+        List<Attendee> updatedAttendees = allAttendees.stream().filter(attendee -> !attendee.getId().equals(id)).collect(toList());
+        this.updateAttendees(updatedAttendees);
+        return id;
+    }
+
+
 }

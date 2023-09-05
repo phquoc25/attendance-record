@@ -3,3 +3,6 @@ curl -d '{"name":"Quoc Jr", "tuesdayOn":"true", "thursdayOn": "false"}' -H "Cont
 
 # get all attendees
 curl http://localhost:8080/attendees
+
+# remove attendee
+curl -X DELETE http://localhost:8080/admin/attendees/{id}

@@ -11,4 +11,6 @@ public interface AttendeeDao {
     void updateAttendees(List<Attendee> attendees) throws IOException;
 
     Attendee save(Attendee attendee) throws IOException;
+
+    String remove(String id) throws IOException;
 }
