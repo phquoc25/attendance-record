@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
@@ -34,7 +33,8 @@ public class AttendeeDaoImpl implements AttendeeDao {
     @Override
     @Cacheable("attendees")
     public List<Attendee> getAllAttendees() {
-        try (InputStream fileInputStream = new FileInputStream(fileName)) {
+        log.info("Retrieving attendees from file # fileName={}", fileName);
+        try (InputStream fileInputStream = new ClassPathResource(fileName).getInputStream()) {
             return Arrays.stream(objectMapper.readValue(fileInputStream, Attendee[].class))
                     .collect(toList());
         } catch (IOException e) {
@@ -46,7 +46,7 @@ public class AttendeeDaoImpl implements AttendeeDao {
     @Override
     synchronized public void updateAttendees(List<Attendee> attendees) throws IOException {
         log.debug("updating attendees to DB");
-        try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(new ClassPathResource(fileName).getFile())) {
             objectMapper.writeValue(fileOutputStream, attendees);
         } catch (IOException e) {
             log.error("Error when updating to DB", e);
