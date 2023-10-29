@@ -1,12 +1,12 @@
 package com.qph.attendancerecord.application.domain.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-import java.util.UUID;
-
-@Data
+@Getter
+@ToString(exclude = {"id"})
 public class Attendee {
-    private String id;
+    private final String id;
 
     private String name;
 
@@ -16,14 +16,15 @@ public class Attendee {
 
     private boolean thursdayOn;
 
-    public Attendee() {
-        // For jackson to deserialize
-    }
-
-    public Attendee(String name, boolean tuesdayOn, boolean thursdayOn) {
-        this.id = UUID.randomUUID().toString();
+    private Attendee(String id, String name, String avatar, boolean tuesdayOn, boolean thursdayOn) {
+        this.id = id;
         this.name = name;
+        this.avatar = avatar;
         this.tuesdayOn = tuesdayOn;
         this.thursdayOn = thursdayOn;
+    }
+
+    public static Attendee register(String id, String name, String avatar, boolean tuesdayOn, boolean thursdayOn) {
+        return new Attendee(id, name, avatar, tuesdayOn, thursdayOn);
     }
 }
