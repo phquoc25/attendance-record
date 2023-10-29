@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class AttendeeRegistrationRequest {
     private String name;
-    private Boolean tuesDayOn;
-    private Boolean thursdayOn;
+    private String tuesdayOn;
+    private String thursdayOn;
 }

@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString(exclude = {"id"})
+@ToString
 public class Attendee {
     private final String id;
 
