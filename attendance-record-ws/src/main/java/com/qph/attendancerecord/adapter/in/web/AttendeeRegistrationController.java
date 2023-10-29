@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 public class AttendeeRegistrationController {
-    private final CommandBus commandBus;
     @PostMapping("/attendees")
-    public void registerAttendee(@RequestBody AttendeeRegistrationRequest request)
-    {
+    public void registerAttendee(@RequestBody AttendeeRegistrationRequest request) {
 
     }
 }
