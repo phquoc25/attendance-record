@@ -1,6 +1,8 @@
 services:
-  web:
-    build: .
-    container_name: 'attendance-app'
-    ports:
-      - "8080:8080"
+    web:
+        build: .
+        container_name: 'attendance-app'
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./attendance-record-ws/target/classes/attendees.json:/attendance-app/attendees.json
