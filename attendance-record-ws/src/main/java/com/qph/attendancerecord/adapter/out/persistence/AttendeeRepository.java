@@ -2,6 +2,7 @@ package com.qph.attendancerecord.adapter.out.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qph.attendancerecord.adapter.out.persistence.model.AttendeeEntity;
+import com.qph.attendancerecord.common.exception.AttendeeNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -74,5 +75,13 @@ public class AttendeeRepository {
         updatedAttendees.add(attendee);
         this.updateAttendees(updatedAttendees);
         return attendee;
+    }
+
+    synchronized public AttendeeEntity getById(String id) {
+        return this.getAllAttendees()
+            .stream()
+            .filter(attendee -> attendee.getId().equals(id))
+            .findFirst()
+            .orElseThrow(() -> AttendeeNotFoundException.notFoundException(id));
     }
 }
