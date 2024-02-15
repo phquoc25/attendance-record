@@ -6,6 +6,8 @@ import com.qph.attendancerecord.application.port.out.AttendeeQueryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AttendeesQueryService implements AttendeeQueryUseCase {
@@ -14,5 +16,10 @@ public class AttendeesQueryService implements AttendeeQueryUseCase {
     @Override
     public Attendee getAttendeeById(String id) {
         return this.attendeeQueryPort.getById(id);
+    }
+
+    @Override
+    public List<Attendee> getAllAttendees() {
+        return this.attendeeQueryPort.getAll();
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v2/attendees")
 @Slf4j
@@ -22,5 +24,11 @@ public class AttendeeQueryController {
             id);
         var attendee = this.attendeeQueryUseCase.getAttendeeById(id);
         return AttendeeResponse.fromAttendee(attendee);
+    }
+
+    @GetMapping
+    public List<AttendeeResponse> getAllAttendees() {
+        log.info("GET ACTION # getting all attendees");
+        return this.attendeeQueryUseCase.getAllAttendees().stream().map(AttendeeResponse::fromAttendee).toList();
     }
 }

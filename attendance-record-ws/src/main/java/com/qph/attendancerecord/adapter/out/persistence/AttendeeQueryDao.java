@@ -6,6 +6,8 @@ import com.qph.attendancerecord.application.port.out.AttendeeQueryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class AttendeeQueryDao implements AttendeeQueryPort {
@@ -16,7 +18,12 @@ public class AttendeeQueryDao implements AttendeeQueryPort {
         return entityToAttendee(repository.getById(id));
     }
 
-    private Attendee entityToAttendee(AttendeeEntity attendeeEntity) {
+    @Override
+    public List<Attendee> getAll() {
+        return repository.getAllAttendees().stream().map(AttendeeQueryDao::entityToAttendee).toList();
+    }
+
+    private static Attendee entityToAttendee(AttendeeEntity attendeeEntity) {
         return Attendee.register(attendeeEntity.getId(),
             attendeeEntity.getName(),
             attendeeEntity.getAvatar(),
