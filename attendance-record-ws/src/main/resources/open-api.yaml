@@ -1,0 +1,41 @@
+openapi: 3.0.1
+info:
+  title: Attendance record api
+  description: API description in Markdown.
+  version: 1.0.0
+servers:
+  - url: 'http://qph.attendancerecord.com'
+components:
+  schemas:
+    attendee-registration-request:
+      type: "object"
+      properties:
+        name:
+          required: true
+          type: "string"
+          example: "Quoc"
+        tuesdayOn:
+          required: true
+          type: "boolean"
+          example: true
+        thursdayOn:
+          required: true
+          type: "boolean"
+          example: true
+paths:
+  /attendees:
+    post:
+      summary: register a new attendee
+      operationId: registerAttendee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/attendee-registration-request'
+      responses:
+        200:
+          description: attendee registered successfully
+        400:
+          description: The request body is invalid
+
+

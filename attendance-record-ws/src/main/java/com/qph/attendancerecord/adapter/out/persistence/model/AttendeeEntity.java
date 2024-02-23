@@ -1,11 +1,9 @@
-package com.qph.attendancerecord.entity;
+package com.qph.attendancerecord.adapter.out.persistence.model;
 
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
-public class Attendee {
+public class AttendeeEntity {
     private String id;
 
     private String name;
@@ -16,13 +14,14 @@ public class Attendee {
 
     private boolean thursdayOn;
 
-    public Attendee() {
+    public AttendeeEntity() {
         // For jackson to deserialize
     }
 
-    public Attendee(String name, boolean tuesdayOn, boolean thursdayOn) {
-        this.id = UUID.randomUUID().toString();
+    public AttendeeEntity(String id, String name, String avatar, boolean tuesdayOn, boolean thursdayOn) {
+        this.id = id;
         this.name = name;
+        this.avatar = avatar;
         this.tuesdayOn = tuesdayOn;
         this.thursdayOn = thursdayOn;
     }
